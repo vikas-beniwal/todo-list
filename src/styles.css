@@ -1,0 +1,101 @@
+body {
+  font-family: sans-serif;
+  color: #0f0f06;
+  font-size: x-large;
+  font-weight: bold;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  height: 70vh;
+  width: 50vh;
+  /* border: 2px solid black; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: hsl(282, 34%, 25%);
+  /* opacity: 0.95; */
+}
+
+.header {
+  height: 32%;
+  width: 100%;
+  /* border: 2px blue solid; */
+  background: lightblue url("../wallpaperflare_com.jpg") no-repeat;
+  background-size: cover;
+  background-position: 50% 40%;
+  border-radius: 10px;
+  /* color: white; */
+}
+
+.content {
+  height: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 2px red solid; */
+}
+#list {
+  height: 80%;
+  width: 100%;
+}
+.add-item {
+  height: 50px;
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem;
+  /* border: 2px red solid; */
+  background-color: hsl(265, 100%, 86%);
+  box-shadow: 1px 1px #fffff0, 0 0.1em;
+
+  border-radius: 10px;
+}
+.item {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: hsl(265, 100%, 86%);
+  box-shadow: 1px 1px #fffff0, 0 0.1em;
+  border-radius: 10px;
+  margin: 2px;
+}
+#input {
+  border-radius: 10px;
+  height: 85%;
+  width: 85%;
+  background-color: hsl(265, 100%, 80%);
+  box-shadow: 1px 1px hsl(282, 34%, 25%), 0 0.1em;
+
+  color: black;
+  font-size: x-large;
+  font-weight: bold;
+}
+.lineThrough {
+  text-decoration: line-through;
+}
+.fa-circle-thin,
+.fa-check-circle {
+  font-size: larger;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.fa-trash-o {
+  font-size: larger;
+  font-weight: bold;
+  margin-right: 5px;
+}
