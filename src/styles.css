@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  color: #0f0f06;
+  color: #d521ec;
   font-size: x-large;
   font-weight: bold;
 }
@@ -20,8 +20,9 @@ body {
   /* border: 2px solid black; */
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+
+  justify-content: space-between;
   background-color: hsl(282, 34%, 25%);
   /* opacity: 0.95; */
 }
@@ -34,6 +35,9 @@ body {
   background-size: cover;
   background-position: 50% 40%;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   /* color: white; */
 }
 

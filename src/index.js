@@ -9,10 +9,38 @@ const lineThrough = "lineThrough";
 // console.log(list);
 
 // console.log(input);
-let LIST = [];
-let id = 0;
+let LIST, id;
 
-function addToDo(toDo, id, done, trash) {
+let data =localStorage.getItem("TODO")
+
+// check data
+if(data){
+  LIST = JSON.parse(data);
+  id=LIST.length ;
+  loadList(LIST);
+}
+else{
+  LIST = [];
+  id=0;
+}
+
+function loadList(array){
+  array.forEach(item => {
+    addToDoToUi(item.name, item.id, item.done, item.trash);
+    
+  });
+}
+clear.addEventListener("click", function(){
+  localStorage.clear();
+  location.reload();
+})
+
+//show date
+const options= {weekday:"long", month:"short",day:"numeric"};
+const today= new Date();
+dateElement.innerHTML=today.toLocaleDateString("en-us", options);
+
+function addToDoToUi(toDo, id, done, trash) {
   if (trash) {
     return;
   }
@@ -20,11 +48,13 @@ function addToDo(toDo, id, done, trash) {
   const LINETHROUGH = done ? lineThrough : "";
   const text = `<li class="item">
   <i class="fa ${DONE}" job="complete" id="${id}"></i>
-  <p class="text${LINETHROUGH}">${toDo}</p>
+  <p class="text ${LINETHROUGH}">${toDo}</p>
   <i class="fa fa-trash-o" job="delete" id="${id}"></i>
 </li>`;
   const position = "beforeend";
   list.insertAdjacentHTML(position, text);
+  console.log(LIST);
+
 }
 
 document.addEventListener("keydown", (e) => {
@@ -36,9 +66,15 @@ document.addEventListener("keydown", (e) => {
     const toDo = input.value;
     if (toDo) {
       // console.log(toDo);
-      addToDo(toDo, id, false, false);
+      // add to LIST
       LIST.push({ name: toDo, id: id, done: false, trash: false });
+
+      // add to ui
+      addToDoToUi(toDo, id, false, false);
+            // add to local storage wheneverlist is updated
+            localStorage.setItem("TODO", JSON.stringify(LIST));
       id++;
+
     }
     input.value = "";
   }
@@ -46,32 +82,63 @@ document.addEventListener("keydown", (e) => {
 
 function completeToDo(element) {
   // console.log(element, "here");
+  LIST[element.id].done = LIST[element.id].done ? false : true;
+  // updating the UI
   element.classList.toggle(check);
   element.classList.toggle(uncheck);
-  console.log(element.parentNode);
   element.parentNode.querySelector(".text").classList.toggle(lineThrough);
-  LIST[element.id].done = LIST[element.id].done ? false : true;
-  console.log(LIST[element.id]);
+  console.log(LIST);
 }
 
 function removeToDo(element) {
-  console.log("11111111111");
+  // console.log("11111111111");
+  console.log(element.id)
+  // console.log(typeof(element.id))
+  
 
-  element.parentNode.parentNode.removeChild(element.parentNode);
-  console.log("heereeeeee");
-  LIST[element.id].trash = true;
-  console.log(LIST[element.id]);
+  //   ui code    
+  const check_id = parseInt(element.id);
+  // console.log(check_id,typeof(check_id))
+
+  
+  //LIST[element.id].trash = true;
+  // LIST.forEach(app => {
+  //   console.log(app.id,typeof(app.id), 'idss') });
+  console.log(LIST);
+
+  const indexToDelete = LIST.findIndex((el)=>{return el.id == check_id}); 
+  console.log(indexToDelete)
+
+  // LIST deletion
+  LIST.splice(indexToDelete , 1)
+  // ui deletion
+  element.parentNode.parentNode.removeChild(element.parentNode); 
+  console.log(LIST);
+
 }
 list.addEventListener("click", (e) => {
-  const element = e.target.closest(".fa");
-  if (element) {
+
+
+  try {
+    const element = e.target.closest(".fa");
     const elementJob = element.attributes.job.value;
+  if(element){
     if (elementJob === "complete") {
       completeToDo(element);
     }
-    if (elementJob === "delete") {
+    else if (elementJob === "delete") {
       removeToDo(element);
     }
+    // to local storage wheneverlist is updated
+    localStorage.setItem("TODO", JSON.stringify(LIST));// add 
+
   }
+  else {return}
+} catch (e) {
+  alert(e.message);
+}
+
 });
+
+
 console.log(LIST);
